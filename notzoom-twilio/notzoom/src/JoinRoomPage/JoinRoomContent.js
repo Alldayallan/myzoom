@@ -7,6 +7,7 @@ import RoomNotFoundMessage from "./RoomNotFoundMessage";
 import JoinRoomButtons from "./JoinRoomButtons";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
+import { checkIfRoomExists } from "../utlis/twilioUtils";
 
 const JoinRoomContent = (props) => {
     const {
@@ -14,7 +15,8 @@ const JoinRoomContent = (props) => {
         setConnectOnlyWithAudioAction,
         connectOnlyWithAudio,
         setRoomIdAction,
-        setIdentityAction
+        setIdentityAction,
+        setShowLoadingOverlay,
     } = props;
 
     const [roomIdValue, setRoomIdValue] = useState("");
@@ -26,7 +28,15 @@ const JoinRoomContent = (props) => {
     const handleJoinToRoom = async () => {
         setIdentityAction(nameValue);
         if (!isRoomHost) {
-            // check if room exists and if yes join
+            setShowLoadingOverlay(true);
+            const roomExists = await checkIfRoomExists(roomIdValue);
+            setShowLoadingOverlay(false);
+            if (roomExists) {
+                setRoomId(roomIdValue);
+                navigate('/room');
+            } else {
+                setShowRoomNotFoundMessage(true);
+            }
         } else {
             setRoomIdAction(uuidv4());
             navigate('/room');
