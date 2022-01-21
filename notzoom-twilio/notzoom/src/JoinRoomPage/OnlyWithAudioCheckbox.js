@@ -15,7 +15,7 @@ const OnlyWithAudioCheckbox = (props) => {
                 onClick={handleConnectionTypeChange}
             >
                 {connectOnlyWithAudio && (
-                    <img className='checkbox_Image' src={CheckImg}></img>
+                    <img className='checkbox_Image' src={CheckImg} alt=''></img>
                 )}
             </div>
             <p className='checkbox_container_paragraph'>Only audio</p>
