@@ -23,13 +23,13 @@ const reducer = (state = initState, action) => {
     case Actions.SET_CONNECT_ONLY_WITH_AUDIO:
       return {
         ...state,
-        connectOnlyWithAudio: action.onlyWithAudio
-      }
+        connectOnlyWithAudio: action.onlyWithAudio,
+      };
     case Actions.SET_ROOM_ID:
       return {
         ...state,
-        roomId: action.roomId
-      }
+        roomId: action.roomId,
+      };
     default:
       return state;
   }
